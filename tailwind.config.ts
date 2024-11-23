@@ -19,6 +19,13 @@ export default {
     },
     extend: {
       colors: {
+        google: {
+          blue: "#1a73e8",
+          red: "#d93025",
+          green: "#1e8e3e",
+          text: "#202124",
+          border: "#dadce0",
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

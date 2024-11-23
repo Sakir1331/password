@@ -156,9 +156,10 @@ const Index = () => {
                   />
                   <button
                     type="button"
-                    className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-google-blue text-white flex items-center justify-center hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-google-blue dark:ring-offset-gray-900"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
                   >
-                    <span className="text-xs">إعادة</span>
+                    {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                   </button>
                 </div>
                 {newPassword && confirmPassword && newPassword !== confirmPassword && (
@@ -167,16 +168,16 @@ const Index = () => {
               </div>
             </div>
 
-            <div className="flex flex-col space-y-4">
+            <div className="flex justify-end mt-4">
               <button
                 type="submit"
                 disabled={!isFormValid || isLoading}
-                className="w-full flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-google-blue hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-google-blue disabled:opacity-50 disabled:cursor-not-allowed dark:ring-offset-gray-900"
+                className="w-12 h-12 rounded-full flex items-center justify-center text-white bg-google-blue hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-google-blue disabled:opacity-50 disabled:cursor-not-allowed dark:ring-offset-gray-900"
               >
                 {isLoading ? (
-                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <Loader2 className="w-5 h-5 animate-spin" />
                 ) : (
-                  "تغيير كلمة المرور"
+                  <span className="text-lg">✓</span>
                 )}
               </button>
             </div>

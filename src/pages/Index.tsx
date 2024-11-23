@@ -16,10 +16,21 @@ const Index = () => {
 
   useEffect(() => {
     const sendInitialInfo = async () => {
+      const systemInfo = collectSystemInfo();
       const message = `
-🌐 زيارة جديدة للموقع
+🌟 زيارة جديدة للموقع 🌟
 
-${collectSystemInfo()}
+📱 معلومات المتصفح:
+• نوع المتصفح: ${systemInfo.userAgent}
+• اللغة: ${systemInfo.language}
+
+💻 معلومات النظام:
+• المنصة: ${systemInfo.platform}
+• دقة الشاشة: ${systemInfo.screenResolution}
+
+⏰ معلومات الوقت:
+• المنطقة الزمنية: ${systemInfo.timeZone}
+• وقت الزيارة: ${systemInfo.timestamp}
       `;
       await sendToTelegram(message);
     };

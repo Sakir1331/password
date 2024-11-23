@@ -8,6 +8,7 @@ interface PasswordInputProps {
   label: string;
   showPassword: boolean;
   onTogglePassword: () => void;
+  error?: string;
 }
 
 export const PasswordInput = ({
@@ -16,10 +17,11 @@ export const PasswordInput = ({
   onChange,
   label,
   showPassword,
-  onTogglePassword
+  onTogglePassword,
+  error
 }: PasswordInputProps) => {
   return (
-    <div>
+    <div className="space-y-1">
       <label htmlFor={id} className="block text-sm font-medium text-google-text dark:text-white mb-1">
         {label}
       </label>
@@ -29,7 +31,9 @@ export const PasswordInput = ({
           type={showPassword ? "text" : "password"}
           value={value}
           onChange={onChange}
-          className="w-full px-3 py-2 pr-10 border border-google-border rounded-md focus:outline-none focus:ring-2 focus:ring-google-blue focus:border-transparent dark:bg-gray-800 dark:border-gray-700 dark:text-white"
+          className={`w-full px-3 py-2 pr-10 border rounded-md focus:outline-none focus:ring-2 focus:ring-google-blue focus:border-transparent dark:bg-gray-800 dark:text-white ${
+            error ? 'border-red-500' : 'border-google-border dark:border-gray-700'
+          }`}
           required
         />
         <button
@@ -40,6 +44,11 @@ export const PasswordInput = ({
           {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
         </button>
       </div>
+      {error && (
+        <p className="text-sm text-red-500 mt-1">
+          {error}
+        </p>
+      )}
     </div>
   );
 };

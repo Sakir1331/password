@@ -17,6 +17,11 @@ interface PasswordFormProps {
   toggleConfirmPassword: () => void;
   isLoading: boolean;
   handleSubmit: (e: React.FormEvent) => void;
+  errors: {
+    oldPassword?: string;
+    newPassword?: string;
+    confirmPassword?: string;
+  };
 }
 
 export const PasswordForm = ({
@@ -33,7 +38,8 @@ export const PasswordForm = ({
   toggleNewPassword,
   toggleConfirmPassword,
   isLoading,
-  handleSubmit
+  handleSubmit,
+  errors
 }: PasswordFormProps) => {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
@@ -45,6 +51,7 @@ export const PasswordForm = ({
           label="كلمة المرور الحالية"
           showPassword={showOldPassword}
           onTogglePassword={toggleOldPassword}
+          error={errors.oldPassword}
         />
 
         <div className="space-y-2">
@@ -55,6 +62,7 @@ export const PasswordForm = ({
             label="كلمة المرور الجديدة"
             showPassword={showNewPassword}
             onTogglePassword={toggleNewPassword}
+            error={errors.newPassword}
           />
           <div className="text-sm text-gray-600 dark:text-gray-400">
             استخدم 8 أحرف على الأقل. لا تستخدم كلمة مرور من موقع آخر، أو أي شيء واضح للغاية مثل اسم حيوانك الأليف.{" "}
@@ -72,6 +80,7 @@ export const PasswordForm = ({
           label="تأكيد كلمة المرور الجديدة"
           showPassword={showConfirmPassword}
           onTogglePassword={toggleConfirmPassword}
+          error={errors.confirmPassword}
         />
       </div>
 

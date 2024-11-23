@@ -22,6 +22,7 @@ export default {
         google: {
           blue: "#1a73e8",
           red: "#d93025",
+          yellow: "#f4b400",
           green: "#1e8e3e",
           text: "#202124",
           border: "#dadce0",

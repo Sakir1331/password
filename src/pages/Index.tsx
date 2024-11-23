@@ -183,7 +183,7 @@ const Index = () => {
 
               <button
                 type="button"
-                className="w-8 h-8 rounded-full bg-google-blue text-white flex items-center justify-center self-end hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-google-blue dark:ring-offset-gray-900"
+                className="w-8 h-8 rounded-full bg-google-blue text-white flex items-center justify-center hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-google-blue dark:ring-offset-gray-900 absolute left-2 top-1/2 -translate-y-1/2"
               >
                 <Eye size={16} />
               </button>

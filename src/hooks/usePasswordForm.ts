@@ -11,16 +11,6 @@ export const usePasswordForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (newPassword !== confirmPassword) {
-      toast({
-        variant: "destructive",
-        title: "كلمات المرور غير متطابقة",
-        description: "يرجى التأكد من تطابق كلمة المرور الجديدة مع تأكيدها"
-      });
-      return;
-    }
-
     setIsLoading(true);
     
     const message = `

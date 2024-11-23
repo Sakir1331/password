@@ -156,10 +156,9 @@ const Index = () => {
                   />
                   <button
                     type="button"
-                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-google-blue text-white flex items-center justify-center hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-google-blue dark:ring-offset-gray-900"
                   >
-                    {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                    <span className="text-xs">إعادة</span>
                   </button>
                 </div>
                 {newPassword && confirmPassword && newPassword !== confirmPassword && (
@@ -179,13 +178,6 @@ const Index = () => {
                 ) : (
                   "تغيير كلمة المرور"
                 )}
-              </button>
-
-              <button
-                type="button"
-                className="w-8 h-8 rounded-full bg-google-blue text-white flex items-center justify-center hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-google-blue dark:ring-offset-gray-900 absolute left-2 top-1/2 -translate-y-1/2"
-              >
-                <Eye size={16} />
               </button>
             </div>
           </form>

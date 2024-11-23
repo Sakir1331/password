@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Eye, EyeOff, Loader2, MoreVertical, Moon, Sun } from "lucide-react";
+import { Eye, EyeOff, HelpCircle, Loader2, MoreVertical, Moon, Sun } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import GoogleLogo from "@/components/GoogleLogo";
 
@@ -53,13 +53,17 @@ const Index = () => {
   return (
     <div className={`min-h-screen bg-white dark:bg-gray-900 transition-colors ${isArabic ? 'rtl' : 'ltr'}`}>
       <div className="max-w-7xl mx-auto px-4">
-        {/* Header */}
         <header className="flex items-center justify-between py-4">
           <button className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full">
             <MoreVertical className="w-6 h-6 text-gray-600 dark:text-gray-300" />
           </button>
           
-          <GoogleLogo />
+          <div className="flex items-center gap-2">
+            <GoogleLogo />
+            <span className="text-sm text-gray-600 dark:text-gray-300">
+              {isArabic ? 'حساب' : 'Account'}
+            </span>
+          </div>
           
           <div className="flex items-center space-x-4">
             <button
@@ -138,6 +142,13 @@ const Index = () => {
                   >
                     {showNewPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                   </button>
+                </div>
+                <div className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                  استخدم 8 أحرف على الأقل. لا تستخدم كلمة مرور من موقع آخر، أو أي شيء واضح للغاية مثل اسم حيوانك الأليف.{" "}
+                  <span className="text-google-blue inline-flex items-center gap-1 cursor-pointer hover:underline">
+                    لماذا؟
+                    <HelpCircle className="w-4 h-4 text-google-blue" />
+                  </span>
                 </div>
               </div>
 

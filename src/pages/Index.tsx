@@ -172,12 +172,12 @@ const Index = () => {
               <button
                 type="submit"
                 disabled={!isFormValid || isLoading}
-                className="w-12 h-12 rounded-full flex items-center justify-center text-white bg-google-blue hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-google-blue disabled:opacity-50 disabled:cursor-not-allowed dark:ring-offset-gray-900"
+                className="w-auto h-10 px-4 rounded-full flex items-center justify-center text-white bg-google-blue hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-google-blue disabled:opacity-50 disabled:cursor-not-allowed dark:ring-offset-gray-900 text-sm"
               >
                 {isLoading ? (
-                  <Loader2 className="w-5 h-5 animate-spin" />
+                  <Loader2 className="w-4 h-4 animate-spin" />
                 ) : (
-                  <span className="text-lg">✓</span>
+                  "تغيير كلمة المرور"
                 )}
               </button>
             </div>

